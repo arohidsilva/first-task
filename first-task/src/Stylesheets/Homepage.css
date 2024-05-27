@@ -18,10 +18,38 @@
     margin: 10px;
 }
 
-.HPNameContainer{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+.HPButton{
+    width:100px;
+    padding: 10px;
+}
+
+.HPActive{
+    background-color: rgb(120, 247, 120);
+}
+
+.HPDeactive{
+    background-color: rgb(247, 147, 147);
+}
+
+table{
     width: 80%;
 }
+
+tr{
+    margin: 10px;
+    border-radius: 10px;
+}
+
+th{
+    height: 50px;
+    background-color: black;
+    color: aliceblue;
+    text-align: center;
+}
+
+td{
+    height: 50px;
+    text-align: center;
+}
+
+
