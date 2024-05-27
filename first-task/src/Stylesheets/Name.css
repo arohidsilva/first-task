@@ -1,0 +1,20 @@
+.NContainer{
+    display: flex;
+    align-items: center;
+    background-color: rgb(192, 190, 190);
+    color: black;
+    margin: 5px 20px;
+    height: 50px;
+    border-radius: 0.5rem;
+    width: 100%
+}
+
+.NChars{
+    width: 25%;
+    margin-left: 10px;
+}
+
+.NButton{
+    margin: 10px;
+    padding: 5px;
+}
