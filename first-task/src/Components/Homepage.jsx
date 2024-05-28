@@ -2,15 +2,23 @@
 import React, { useEffect, useState } from 'react';
 import '../Stylesheets/Homepage.css';
 import Select from "react-select";
+import { CgMenuGridR } from "react-icons/cg";
+
 
 function Homepage() {
     const [names,setNames]= useState({name:"",status:true});
     const [nameList,setNameList] = useState([]);
-    const [showList,setShowList] = useState([])
+    const [showList,setShowList] = useState([]);
     const [fetch, setFetch] = useState({
         statusKey:[],
         sortKey: "",
       });
+    const [menu,setMenu] = useState(false);
+    const [loading,setLoading] = useState(false);
+
+    useEffect(()=>{
+        
+    },[])
 
     const handleChange = (event) => {
         setNames({...names, name :event.target.value});
@@ -92,69 +100,100 @@ function Homepage() {
 
   return (
     <div className='HPContainer'>
-        <form>
+        <div className='HPSubmitConatiner'>
+            <CgMenuGridR className='HPMenu' onClick={()=>{setMenu(!menu)}}/>
             <input className='HPInput'  type='text' placeholder='Enter the name' onChange={handleChange}></input>
             <button className='HPSubmit' onClick={handleSubmit}>Submit</button>
-        </form>
-        <div>
-        <Select
-            isMulti
-            className="MISelect"
-            options={statusList}
-            placeholder="Filter by status"
-            value={fetch.statusKey}
-            onChange={(e) => {
-                setFetch({...fetch,statusKey: e})
-            }}
-          />
-        <Select
-            options={options}
-            placeholder="Sort by name"
-            value={fetch.sortKey}
-            onChange={(e) => {
-              setFetch({...fetch,sortKey: e.value})
-            }}
-          />
-            
         </div>
         {
-            showList.length != 0 ? 
+            menu ?
             <>
-            <table>
-                <tr>
-                    <th>Name</th>
-                    <th>Status</th>
-                    <th>Delete</th>
-                </tr>
-                {
-                    showList.map((name, index) => {
-                        return (
-                            <tr key={index} className={name.status? 'HPActive':'HPDeactive'}>
-                                <td>{name.name}</td>
-                                <td>
-                                    {name.status == true?
-                                    <>
-                                        <button className='HPButton' onClick={()=>{handleStatus(name.name)}}> Deactivate </button>
-                                    </>:
-                                    <>
-                                        <button className='HPButton' onClick={()=>{handleStatus(name.name)}}> Activate </button>
-                                    </>}
-                                </td>
-                                <td>
-                                    <button className='HPButton' onClick={()=>{deleteName(name.name)}}> Delete </button>
-                                </td>
-                            </tr>
-                        );
-                    })
-                }
-
-            </table>
-            </> 
-            : 
-            <>
-                <div>No names submitted yet!</div>
-            </>
+                <div className='HPFilter'>
+                    {/* <IoCloseCircleSharp onClick={()=>{setMenu(!menu)}}/> */}
+                    <Select
+                        isMulti
+                        className="MISelect"
+                        options={statusList}
+                        placeholder="Filter by status"
+                        value={fetch.statusKey}
+                        onChange={(e) => {
+                            setFetch({...fetch,statusKey: e})
+                        }}
+                        styles={{
+                            control: (baseStyles) => ({
+                            ...baseStyles,
+                            borderWidth: 2,
+                            borderRadius: 17,
+                            borderColor: "black",
+                            margin: 10,
+                            width: 260
+                            })
+                        }}
+                    />
+                    <Select
+                        options={options}
+                        placeholder="Sort by name"
+                        onChange={(e) => {
+                        setFetch({...fetch,sortKey: e.value})
+                        }}
+                        styles={{
+                            control: (baseStyles) => ({
+                            ...baseStyles,
+                            borderWidth: 2,
+                            borderRadius: 17,
+                            borderColor: "black",
+                            margin: 10,
+                            width: 260
+                            })
+                        }}
+                    />  
+                </div>
+            </>:
+            <></>
         }
+        
+        <div className='HPTable'>
+            <div className='d-flex justify-content-center'>
+            {
+                showList.length != 0 ? 
+                <>
+                <table>
+                    <tr>
+                        <th style={{ width: '300px' }}>Name</th>
+                        <th>Status</th>
+                        <th>Delete</th>
+                    </tr>
+                    {
+                        showList.map((name, index) => {
+                            return (
+                                <tr key={index} className={name.status? 'HPActive':'HPDeactive'}>
+                                    <td>{name.name}</td>
+                                    <td>
+                                        {name.status == true?
+                                        <>
+                                            <button className='HPButton' onClick={()=>{handleStatus(name.name)}}> Deactivate </button>
+                                        </>:
+                                        <>
+                                            <button className='HPButton' onClick={()=>{handleStatus(name.name)}}> Activate </button>
+                                        </>}
+                                    </td>
+                                    <td>
+                                        <button className='HPButton' onClick={()=>{deleteName(name.name)}}> Delete </button>
+                                    </td>
+                                </tr>
+                            );
+                        })
+                    }
+
+                </table>
+                </> 
+                : 
+                <>
+                    <div className='text-danger fs-4 fw-bold'>No names submitted yet!</div>
+                </>
+            }
+            </div>
+        </div>
     </div>
   )
 }
