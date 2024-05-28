@@ -55,8 +55,8 @@ function Homepage() {
     ]
 
     const statusList = [
-        { value: "true", label: "Active" },
-        { value: "false", label: "Deactive" }
+        { value: true, label: "Active" },
+        { value: false, label: "Deactive" }
       ];
 
     // useEffect(()=>{
@@ -93,6 +93,28 @@ function Homepage() {
 
     // console.log("fetch",fetch);
 
+    const updateStatusMetod = (e) => {
+        setFetch({ ...fetch, statusKey: e });
+        let statusList = [];
+        fetch.statusKey.forEach((cat) => {
+            statusList.push(cat.value);
+        });
+        const statSet = statusList;
+        console.log(statSet);
+        let res = [];
+        if (fetch.statusKey.length == 0) {
+            res = nameList;
+        } else {
+            nameList.forEach((usr) => {
+                const d = statSet.includes(usr.status);
+                if (d) {
+                    res.push(usr);
+                }
+            });
+        }
+        setShowList(res)
+    }
+
     console.log(fetch.statusKey);
     const updateSortMethod = (e) => {
         setFetch({ ...fetch, sortKey: e });
@@ -115,12 +137,13 @@ function Homepage() {
         </form>
         <div>
         <Select
+            isMulti
             className="MISelect"
             options={statusList}
             placeholder="Filter by status"
             value={fetch.statusKey}
             onChange={(e) => {
-              setFetch({ ...fetch, statusKey: e});
+              updateStatusMetod(e)
             }}
           />
         <Select
