@@ -59,42 +59,7 @@ function Homepage() {
         { value: false, label: "Deactive" }
       ];
 
-    // useEffect(()=>{
-    //     let catList = [];
-    //     fetch.statusKey.forEach((cat) => {
-    //         catList.push(cat.value.toLowerCase());
-    //     });
-    //     // const catSet = catList;
-    //     // let res = [];
-    //     // if (fetch.statusKey.length == 0) {
-    //     //     res = nameList;
-    //     // } else {
-    //     //     nameList.forEach((usr) => {
-    //     //         const d = usr.status.some((usrcat) =>
-    //     //             catSet.includes(usrcat.toLowerCase())
-    //     //         );
-    //     //         if (d) {
-    //     //             res.push(usr);
-    //     //         }
-    //     //     });
-    //     // }
-    //     // setShowList(res)
-    //     let res=nameList;
-    //     let finalres = [];
-    //     if (options[0].value == fetch.sortKey) {
-    //         finalres = res.sort((a, b) => a.name.localeCompare(b.name));
-    //     } else if (options[1].value == fetch.sortKey){
-    //         finalres = res.sort((a, b) => b.name.localeCompare(a.name));
-    //     }else{
-    //         finalres = res;
-    //     }
-    //     setShowList(finalres);
-    // },[fetch]);
-
-    // console.log("fetch",fetch);
-
-    const updateStatusMetod = (e) => {
-        setFetch({ ...fetch, statusKey: e });
+    useEffect(()=>{
         let statusList = [];
         fetch.statusKey.forEach((cat) => {
             statusList.push(cat.value);
@@ -112,20 +77,16 @@ function Homepage() {
                 }
             });
         }
-        setShowList(res)
-    }
-
-    console.log(fetch.statusKey);
-    const updateSortMethod = (e) => {
-        setFetch({ ...fetch, sortKey: e });
-        if (options[0].value == e.value) {
-          let res = nameList.sort((a, b) => a.name.localeCompare(b.name));
-          setShowList(res);
-        } else if (options[1].value == e.value){
-          let res = nameList.sort((a, b) => b.name.localeCompare(a.name));
-          setShowList(res);
+        setShowList(res);
+        let finalres = [];
+        if (options[0].value == fetch.sortKey) {
+          finalres = res.slice().sort((a, b) => a.name.localeCompare(b.name));
+          setShowList(finalres);
+        } else if (options[1].value == fetch.sortKey){
+          finalres = res.slice().sort((a, b) => b.name.localeCompare(a.name));
+          setShowList(finalres);
         }
-      };
+    },[fetch])
     
     
 
@@ -143,7 +104,7 @@ function Homepage() {
             placeholder="Filter by status"
             value={fetch.statusKey}
             onChange={(e) => {
-              updateStatusMetod(e)
+                setFetch({...fetch,statusKey: e})
             }}
           />
         <Select
@@ -151,7 +112,7 @@ function Homepage() {
             placeholder="Sort by name"
             value={fetch.sortKey}
             onChange={(e) => {
-              updateSortMethod(e)
+              setFetch({...fetch,sortKey: e.value})
             }}
           />
             
