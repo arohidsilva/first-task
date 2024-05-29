@@ -21,7 +21,7 @@ function Homepage() {
         setLoading(true);
         setTimeout(()=>{
             setLoading(false);
-        },3000);
+        },2000);
     },[nameList]);
 
     const handleChange = (event) => {
@@ -106,17 +106,18 @@ function Homepage() {
     <div className='HPContainer'>
         <div className='HPSubmitConatiner'>
             <CgMenuGridR className='HPMenu' onClick={()=>{setMenu(!menu)}}/>
-            <input className='HPInput'  type='text' placeholder='Enter the name' onChange={handleChange}></input>
-            <button className='HPSubmit' onClick={handleSubmit}>Submit</button>
+            <input className='HPInput col-12 col-md-6'  type='text' placeholder='Enter the name' onChange={handleChange}></input>
+            <button className='HPSubmit col-12 col-md-6' onClick={handleSubmit}>Submit</button>
         </div>
         {
             menu ?
             <>
-                <div className='HPFilter'>
+            <div className='HPFilterContainer'>
+            <div className='HPFilter'>
                     {/* <IoCloseCircleSharp onClick={()=>{setMenu(!menu)}}/> */}
                     <Select
                         isMulti
-                        className="MISelect"
+                        className="HPSelect"
                         options={statusList}
                         placeholder="Filter by status"
                         value={fetch.statusKey}
@@ -128,13 +129,12 @@ function Homepage() {
                             ...baseStyles,
                             borderWidth: 2,
                             borderRadius: 17,
-                            borderColor: "black",
-                            margin: 10,
-                            width: 260
+                            borderColor: "black"
                             })
                         }}
                     />
                     <Select
+                        className="HPSelect"
                         options={options}
                         placeholder="Sort by name"
                         onChange={(e) => {
@@ -145,71 +145,71 @@ function Homepage() {
                             ...baseStyles,
                             borderWidth: 2,
                             borderRadius: 17,
-                            borderColor: "black",
-                            margin: 10,
-                            width: 260
+                            borderColor: "black"
                             })
                         }}
                     />  
                 </div>
+            </div>
+                
             </>:
             <></>
         }
-        
-        <div className='HPTable'>
-            <div className='d-flex justify-content-center'>
-            {
-                showList.length != 0 ? 
-                <>
-                {loading ?
-                    < BeatLoader
-                        color='rgb(4, 108, 194)'
-                        loading={loading}
-                        size={20}
-                        margin-top={200}
-                        aria-label="Loading Spinner"
-                        data-testid="loader"
-                    />
-                    :
-                    <table>
-                        <tr>
-                            <th style={{ width: '300px' }}>Name</th>
-                            <th>Status</th>
-                            <th>Delete</th>
-                        </tr>
-                        {
-                            showList.map((name, index) => {
-                                return (
-                                    <tr key={index} className={name.status? 'HPActive':'HPDeactive'}>
-                                        <td>{name.name}</td>
-                                        <td>
-                                            {name.status == true?
-                                            <>
-                                                <button className='HPButton' onClick={()=>{handleStatus(name.name)}}> Deactivate </button>
-                                            </>:
-                                            <>
-                                                <button className='HPButton' onClick={()=>{handleStatus(name.name)}}> Activate </button>
-                                            </>}
-                                        </td>
-                                        <td>
-                                            <button className='HPButton' onClick={()=>{deleteName(name.name)}}> Delete </button>
-                                        </td>
-                                    </tr>
-                                );
-                            })
-                        }
+        <div className='d-flex justify-content-center z-1'>
+            <div className='HPTable'>
+                {
+                    nameList.length != 0 ? 
+                    <>
+                    {loading ?
+                        < BeatLoader
+                            color='rgb(4, 108, 194)'
+                            loading={loading}
+                            size={20}
+                            margin-top={200}
+                            aria-label="Loading Spinner"
+                            data-testid="loader"
+                        />
+                        :
+                        <table>
+                            <tr>
+                                <th style={{ width: '300px' }}>Name</th>
+                                <th>Status</th>
+                                <th>Delete</th>
+                            </tr>
+                            {
+                                showList.map((name, index) => {
+                                    return (
+                                        <tr key={index} className={name.status? 'HPActive':'HPDeactive'}>
+                                            <td>{name.name}</td>
+                                            <td>
+                                                {name.status == true?
+                                                <>
+                                                    <button className='HPButton' onClick={()=>{handleStatus(name.name)}}> Deactivate </button>
+                                                </>:
+                                                <>
+                                                    <button className='HPButton' onClick={()=>{handleStatus(name.name)}}> Activate </button>
+                                                </>}
+                                            </td>
+                                            <td>
+                                                <button className='HPButton' onClick={()=>{deleteName(name.name)}}> Delete </button>
+                                            </td>
+                                        </tr>
+                                    );
+                                })
+                            }
 
-                    </table>
+                        </table>
+                    }
+                    
+                    </> 
+                    : 
+                    <>
+                        <div className='text-danger fs-4 fw-bold p-3'>No names submitted yet!</div>
+                    </>
                 }
-                
-                </> 
-                : 
-                <>
-                    <div className='text-danger fs-4 fw-bold'>No names submitted yet!</div>
-                </>
-            }
             </div>
         </div>
+        
     </div>
   )
 }

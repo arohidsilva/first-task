@@ -12,25 +12,27 @@
 
 .HPMenu{
     color: white;
-    font-size: 3.5rem;
-    left: 1.5rem;
+    font-size: 45px;
+    left: 1rem;
     position: absolute;
 }
 
 .HPInput{
     height: 45px;
-    width: 300px;
-    border-radius: 1rem;
-    margin: 10px;
+    width: 250px;
+    border-radius: 1rem 0 0 1rem;
+    margin: 10px 0;
     color: black;
     padding: 10px;
 }
 
 .HPSubmit{
     height: 45px;
-    border-radius: 1rem;
-    margin: 10px;
+    border-radius: 0 1rem 1rem 0;
+    margin: 10px 0;
     background-color: black;
+    width:70px;
+    padding: 5px;
 }
 
 .HPButton{
@@ -52,7 +54,7 @@
 }
 
 table{
-    width: 80%;
+    /* width: 80%; */
     border-collapse: separate;
     border-spacing: 0 5px;
 }
@@ -76,27 +78,95 @@ td{
     font-weight: 600;
 }
 
+.HPFilterContainer{
+    top: 8rem;
+    width:100vw;
+    position:fixed;
+}
+
 .HPFilter{
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2rem;
     width: 300px;
     height:100vh;
     background-color: rgb(177, 174, 174);
     left: 0;
     top: 8rem;
-    position: fixed;
+    /* position: fixed; */
 
+}
+
+.HPSelect{
+    width: 260px;
+    margin: 2rem 1rem 0 0;
 }
 
 .HPTable{
     display: flex;
     justify-content: center;
-    z-index: 1;
-    padding-top: 2rem;
-
+    /* z-index: 1; */
+    padding: 1rem 1rem;
+    background-color: rgb(228, 225, 225);
+    margin: 1rem;
+    border-radius: 1rem;
 }
+
+@media  screen and (max-width:1200px) {
+    .HPFilterContainer{
+        background-color: rgb(30,30,30,0.7) ;
+    }
+}
+
+@media  screen and (max-width:570px) {
+    .HPInput{
+        width: 200px;
+        height: 40px;
+    }
+    .HPSubmit{
+        width: 55px;
+        font-size: small;
+        height: 40px;
+    }
+    .HPMenu{
+        font-size: 40px;
+    }
+    .HPFilter{
+        width: 250px;
+    }
+    .HPSelect{
+        width: 210px;
+    }
+}
+
+@media  screen and (max-width:460px) {
+    .HPInput{
+        width:170px;
+    }
+    .HPFilter{
+        width: 200px;
+    }
+    .HPSelect{
+        width: 160px;
+        font-size: small;
+    }
+}
+
+@media  screen and (max-width:360px) {
+    .HPInput{
+        width:150px;
+    }
+    /* .HPFilter{
+        width: 150px;
+    }
+    .HPSelect{
+        width: 110px;
+        font-size: small;
+    } */
+}
+
+
+
 
 
 
