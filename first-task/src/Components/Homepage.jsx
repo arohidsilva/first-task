@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import '../Stylesheets/Homepage.css';
 import Select from "react-select";
 import { CgMenuGridR } from "react-icons/cg";
+import BeatLoader from "react-spinners/BeatLoader";
 
 
 function Homepage() {
@@ -17,8 +18,11 @@ function Homepage() {
     const [loading,setLoading] = useState(false);
 
     useEffect(()=>{
-        
-    },[])
+        setLoading(true);
+        setTimeout(()=>{
+            setLoading(false);
+        },3000);
+    },[nameList]);
 
     const handleChange = (event) => {
         setNames({...names, name :event.target.value});
@@ -157,35 +161,47 @@ function Homepage() {
             {
                 showList.length != 0 ? 
                 <>
-                <table>
-                    <tr>
-                        <th style={{ width: '300px' }}>Name</th>
-                        <th>Status</th>
-                        <th>Delete</th>
-                    </tr>
-                    {
-                        showList.map((name, index) => {
-                            return (
-                                <tr key={index} className={name.status? 'HPActive':'HPDeactive'}>
-                                    <td>{name.name}</td>
-                                    <td>
-                                        {name.status == true?
-                                        <>
-                                            <button className='HPButton' onClick={()=>{handleStatus(name.name)}}> Deactivate </button>
-                                        </>:
-                                        <>
-                                            <button className='HPButton' onClick={()=>{handleStatus(name.name)}}> Activate </button>
-                                        </>}
-                                    </td>
-                                    <td>
-                                        <button className='HPButton' onClick={()=>{deleteName(name.name)}}> Delete </button>
-                                    </td>
-                                </tr>
-                            );
-                        })
-                    }
+                {loading ?
+                    < BeatLoader
+                        color='rgb(4, 108, 194)'
+                        loading={loading}
+                        size={20}
+                        margin-top={200}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                    />
+                    :
+                    <table>
+                        <tr>
+                            <th style={{ width: '300px' }}>Name</th>
+                            <th>Status</th>
+                            <th>Delete</th>
+                        </tr>
+                        {
+                            showList.map((name, index) => {
+                                return (
+                                    <tr key={index} className={name.status? 'HPActive':'HPDeactive'}>
+                                        <td>{name.name}</td>
+                                        <td>
+                                            {name.status == true?
+                                            <>
+                                                <button className='HPButton' onClick={()=>{handleStatus(name.name)}}> Deactivate </button>
+                                            </>:
+                                            <>
+                                                <button className='HPButton' onClick={()=>{handleStatus(name.name)}}> Activate </button>
+                                            </>}
+                                        </td>
+                                        <td>
+                                            <button className='HPButton' onClick={()=>{deleteName(name.name)}}> Delete </button>
+                                        </td>
+                                    </tr>
+                                );
+                            })
+                        }
 
-                </table>
+                    </table>
+                }
+                
                 </> 
                 : 
                 <>
