@@ -4,7 +4,8 @@ import '../Stylesheets/Homepage.css';
 import Select from "react-select";
 import { CgMenuGridR } from "react-icons/cg";
 import BeatLoader from "react-spinners/BeatLoader";
-
+import { options , statusList } from '../Utils/Options';
+import { nameExists, capitalizeFirstLetter} from '../Utils/Methods';
 
 function Homepage() {
     const [names,setNames]= useState({name:"",status:true});
@@ -25,17 +26,15 @@ function Homepage() {
     },[nameList]);
 
     const handleChange = (event) => {
-        setNames({...names, name :event.target.value});
+        setNames({...names, name :capitalizeFirstLetter(event.target.value)});
     };
 
-    const nameExists = (usr) => {
-        return nameList.some((nameItr) => nameItr.name.toLowerCase() === usr.toLowerCase());
-    };
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        if(nameExists(names.name)){
+    const handleSubmit = () => {
+        // event.preventDefault();
+        if(nameExists(names.name, nameList)){
             alert("Name already exists!");
+        }else if(names.name == ""){
+            alert("Please enter a name");
         }else{
             setNameList([...nameList,names]);
             setShowList([...nameList,names]);
@@ -61,23 +60,13 @@ function Homepage() {
         setShowList(res);
     }
 
-    const options = [
-        { value: 'name (a-z)', label: 'Name (A-Z)' },
-        { value: 'name (z-a)', label: 'Name (Z-A)'}
-    ]
-
-    const statusList = [
-        { value: true, label: "Active" },
-        { value: false, label: "Deactive" }
-      ];
-
     useEffect(()=>{
         let statusList = [];
         fetch.statusKey.forEach((cat) => {
             statusList.push(cat.value);
         });
         const statSet = statusList;
-        console.log(statSet);
+        // console.log(statSet);
         let res = [];
         if (fetch.statusKey.length == 0) {
             res = nameList;
@@ -204,7 +193,7 @@ function Homepage() {
                     </> 
                     : 
                     <>
-                        <div className='text-danger fs-4 fw-bold p-3'>No names submitted yet!</div>
+                        <div className='text-danger fs-4 fw-bold p-3'>No name is submitted yet!</div>
                     </>
                 }
             </div>
