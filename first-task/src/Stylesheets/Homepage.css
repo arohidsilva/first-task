@@ -78,11 +78,11 @@ td{
     font-weight: 600;
 }
 
-.HPFilterContainer{
+/* .HPFilterContainer{
     top: 8rem;
     width:100vw;
     position:fixed;
-}
+} */
 
 .HPFilter{
     display: flex;
@@ -93,7 +93,7 @@ td{
     background-color: rgb(177, 174, 174);
     left: 0;
     top: 8rem;
-    /* position: fixed; */
+    position: fixed;
 
 }
 
@@ -112,11 +112,11 @@ td{
     border-radius: 1rem;
 }
 
-@media  screen and (max-width:1200px) {
+/* @media  screen and (max-width:1200px) {
     .HPFilterContainer{
         background-color: rgb(30,30,30,0.7) ;
     }
-}
+} */
 
 @media  screen and (max-width:570px) {
     .HPInput{

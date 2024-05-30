@@ -22,7 +22,7 @@ function Homepage() {
         setLoading(true);
         setTimeout(()=>{
             setLoading(false);
-        },2000);
+        },1000);
     },[nameList]);
 
     const handleChange = (event) => {
@@ -101,9 +101,8 @@ function Homepage() {
         {
             menu ?
             <>
-            <div className='HPFilterContainer'>
+            {/* <div className='HPFilterContainer'> */}
             <div className='HPFilter'>
-                    {/* <IoCloseCircleSharp onClick={()=>{setMenu(!menu)}}/> */}
                     <Select
                         isMulti
                         className="HPSelect"
@@ -139,7 +138,7 @@ function Homepage() {
                         }}
                     />  
                 </div>
-            </div>
+            {/* </div> */}
                 
             </>:
             <></>
